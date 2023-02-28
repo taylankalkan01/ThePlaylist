@@ -1,0 +1,59 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  color: black;
+  width: 196px;
+  background-color: black;
+}
+
+.logo {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-left: 15px;
+}
+.logo a {
+  text-decoration: none;
+}
+.logo a span {
+  color: white;
+}
+
+.navigation ul {
+  list-style: none;
+  margin-top: 20px;
+  margin-left: 15px;
+}
+.navigation ul li {
+  padding: 10px 0px;
+}
+.navigation ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+}
+.icon {
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+.policies {
+  position: absolute;
+  bottom: 60px;
+}
+.policies ul {
+  list-style: none;
+}
+.policies ul li {
+  padding-bottom: 5px;
+  margin-top: 15px;
+  padding-left: 20px;
+}
+.policies ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+}
