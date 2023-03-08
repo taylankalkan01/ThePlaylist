@@ -1,6 +1,6 @@
 import app from "./app";
+import { APP_PORT } from "./app";
 
-const port = process.env.APP_PORT || 3001;
-app.listen(port, () => {
-  console.log("The Playlist is running on port: " + port);
+app.listen(APP_PORT, () => {
+  console.log("The Playlist is running on port: " + APP_PORT);
 });
