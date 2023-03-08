@@ -1,35 +1,30 @@
 import mongoose, { Document, ObjectId } from "mongoose";
 import moment from "moment";
 
-export interface Playlist extends Document {
+export interface Artist extends Document {
   name: string;
-  songs: string;
-  photo: Date;
-  description: string;
+  photo: string;
+  bio: string;
   followers: ObjectId;
+  albums: ObjectId;
+  songs: ObjectId;
+  monthlyListeners: number;
   createdAt: string;
   updatedAt: string;
 }
 
-const playlistSchema = new mongoose.Schema(
+const artistSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true
     },
-    songs: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Song"
-      }
-    ],
     photo: {
       type: String,
-      required: false
+      required: true
     },
-    description: {
-      type: String,
-      required: false
+    bio: {
+      type: String
     },
     followers: [
       {
@@ -37,6 +32,21 @@ const playlistSchema = new mongoose.Schema(
         ref: "User"
       }
     ],
+    albums: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Album"
+      }
+    ],
+    songs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Song"
+      }
+    ],
+    monthlyListeners: {
+      type: Number
+    },
     createdAt: {
       type: String,
       default: moment().format("MMMM Do YYYY, h:mm:ss a")
@@ -49,6 +59,6 @@ const playlistSchema = new mongoose.Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Playlist = mongoose.model<Playlist>("Playlist", playlistSchema);
+const Artist = mongoose.model<Artist>("Artist", artistSchema);
 
-export default Playlist;
+export default Artist;
