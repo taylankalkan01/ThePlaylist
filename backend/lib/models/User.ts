@@ -73,6 +73,9 @@ const userSchema = new mongoose.Schema(
     membershipEndDate: {
       type: Date,
     },
+    isAdmin:{
+      default:false
+    },
     createdAt: {
       type: String,
       default: moment().format("MMMM Do YYYY, h:mm:ss a"),
