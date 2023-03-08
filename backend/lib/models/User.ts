@@ -1,90 +1,89 @@
-import mongoose, {Document, ObjectId } from "mongoose";
-import moment from "moment"
+import mongoose, { Document, ObjectId } from "mongoose";
+import moment from "moment";
 
 export interface User extends Document {
-  firstName: string
-  lastName: string
-  dob: Date
-  email:string
-  password:string
-  phone:string
-  membership:ObjectId
-  followers:ObjectId
-  followings:ObjectId
-  playlists:ObjectId
-  membershipStartDate:Date
-  membershipEndDate:Date
-  isAdmin:Boolean
-  createdAt:string
-  updatedAt:string
+  firstName: string;
+  lastName: string;
+  dob: Date;
+  email: string;
+  password: string;
+  phone: string;
+  membership: ObjectId;
+  followers: ObjectId;
+  followings: ObjectId;
+  playlists: ObjectId;
+  membershipStartDate: Date;
+  membershipEndDate: Date;
+  isAdmin: Boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: true,
+      required: true
     },
     lastName: {
       type: String,
-      required: true,
+      required: true
     },
     dob: {
       type: Date,
-      required: true,
+      required: true
     },
     email: {
       type: String,
-      required: true,
+      required: true
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
     phone: {
       type: String,
-      required: false,
+      required: false
     },
     membership: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Plan",
+      ref: "Plan"
     },
     followers: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
+        ref: "User"
+      }
     ],
     followings: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
+        ref: "User"
+      }
     ],
     playlists: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Playlist",
-      },
+        ref: "Playlist"
+      }
     ],
     membershipStartDate: {
-      type: Date,
+      type: Date
     },
     membershipEndDate: {
-      type: Date,
+      type: Date
     },
-    isAdmin:{
-      default:false
+    isAdmin: {
+      default: false
     },
     createdAt: {
       type: String,
-      default: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      default: moment().format("MMMM Do YYYY, h:mm:ss a")
     },
     updatedAt: {
       type: String,
-      default: moment().format("MMMM Do YYYY, h:mm:ss a"),
-    },
-
+      default: moment().format("MMMM Do YYYY, h:mm:ss a")
+    }
   },
   { versionKey: false, timestamps: true }
 );

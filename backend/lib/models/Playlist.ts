@@ -6,7 +6,7 @@ export interface Playlist extends Document {
   songs: string;
   photo: Date;
   description: string;
-  followers:ObjectId
+  followers: ObjectId;
   createdAt: string;
   updatedAt: string;
 }
@@ -32,11 +32,11 @@ const playlistSchema = new mongoose.Schema(
       required: false
     },
     followers: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-      ],
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
     createdAt: {
       type: String,
       default: moment().format("MMMM Do YYYY, h:mm:ss a")
