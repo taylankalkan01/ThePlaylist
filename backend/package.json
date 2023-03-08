@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "format": "prettier --config .prettierrc 'lib/**/*.ts' --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "Taylan Kalkan",
@@ -16,9 +16,14 @@
   "devDependencies": {
     "@types/config": "^3.3.0",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.4.0",
     "@types/node": "^18.14.1",
+    "@types/supertest": "^2.0.12",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.21",
     "prettier": "^2.8.4",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.5"
   },
