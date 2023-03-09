@@ -14,7 +14,7 @@ export interface User extends Document {
   playlists: ObjectId;
   membershipStartDate: Date;
   membershipEndDate: Date;
-  isAdmin: Boolean;
+  isAdmin: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
       required: true
     },
     dob: {
-      type: Date,
+      type: String,
       required: true
     },
     email: {
@@ -74,6 +74,7 @@ const userSchema = new mongoose.Schema(
       type: Date
     },
     isAdmin: {
+      type: Boolean,
       default: false
     },
     createdAt: {
