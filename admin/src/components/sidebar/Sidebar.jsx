@@ -15,7 +15,7 @@ const Sidebar = () => {
       <div className="top">
         <span className="logo">Admin Panel</span>
       </div>
-      <hr />
+      {/* <hr /> */}
       <div className="center">
         <ul>
           <p className="title">MAIN MENU</p>

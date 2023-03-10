@@ -5,15 +5,19 @@
     background-color: white;
     
     .top {
-        height: 50px;
+        height: 59.5px;
         display: flex;
         align-items: center;
-        justify-content: left;
+        justify-content: center;
+        // background-color: red;
+        border-bottom: 0.5px solid rgb(230, 227, 227);
+
 
         .logo {
             font-size: 20px;
             font-weight: bold;
             color: #1f5ce0;
+            // background-color: green;
         }
     }
 
@@ -31,7 +35,7 @@
             padding: 0;
 
             .title {
-                font-size: 10px;
+                font-size: 15px;
                 font-weight: bold;
                 color: gray;
                 margin-top: 15px;
@@ -40,8 +44,10 @@
 
             li {
                 display: flex;
+                flex-direction: row;
                 align-items: center;
-                padding: 5px;
+                justify-content: flex-start;
+                // padding: 5px;
                 cursor: pointer;
 
                 &:hover {
@@ -54,7 +60,7 @@
                 }
 
                 span {
-                    font-size: 13px;
+                    font-size: 16spx;
                     font-weight: 600;
                     color: #888;
                     margin-left: 10px;
