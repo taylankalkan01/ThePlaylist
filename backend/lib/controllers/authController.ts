@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import bcrypt from "bcrypt";
-import { registerUserInput } from "../schemas/auth/authValidation";
+import {
+  registerUserInput,
+  registerAdminInput
+} from "../schemas/auth/authValidation";
 
 const registerUser = async (req: Request, res: Response) => {
   const { firstName, lastName, dob, email, password, phone } = req.body;
@@ -48,8 +51,10 @@ const registerUser = async (req: Request, res: Response) => {
 };
 const registerAdmin = async (req: Request, res: Response) => {
   const { firstName, lastName, password, dob, email } = req.body;
+  
   try {
-    //validation TODO
+    //validation
+    registerAdminInput.parse(req.body);
 
     //check if email is exists
     const admin = await User.findOne({ email });
