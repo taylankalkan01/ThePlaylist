@@ -146,8 +146,25 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
+const logoutUser =async (req:Request,res:Response) => {
+  try {
+    res.clearCookie("userJWT").status(200).json({
+      error:false,
+      message:"User Logout Successful."
+    })
+    
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+  
+}
+
 export default {
   registerUser,
   registerAdmin,
-  loginUser
+  loginUser,
+  logoutUser
 };
