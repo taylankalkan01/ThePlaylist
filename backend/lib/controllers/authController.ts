@@ -159,9 +159,69 @@ const logoutUser = async (req: Request, res: Response) => {
   }
 };
 
+const loginAdmin = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  try {
+    //validation TODO
+
+    //find user and check email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ error: true, message: "Email or Password is wrong" });
+    }
+
+    //check if user isAdmin or not
+    if (user.isAdmin !== true) {
+      return res.status(400).json({
+        error: true,
+        message: "isAdmin must be true!"
+      });
+    }
+
+    //check password
+    const checkPass = await bcrypt.compare(password, user.password);
+    if (!checkPass) {
+      return res
+        .status(400)
+        .json({ error: true, message: "Email or Password is wrong" });
+    }
+
+    //generate token
+    let token = await generateToken(user);
+
+    //send cookie
+    res.cookie("adminJWT", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax", //cross-site cookie ** boolean | 'lax' | 'strict' | 'none' | undefined;
+      maxAge: 24 * 60 * 60 * 1000 //maxAge = 1 day
+      // signed: true
+      // path?: string | undefined;
+      // domain?: string | undefined;
+    });
+
+    //response
+    res.status(200).json({
+      error: false,
+      message: "Admin Login Succesfully!",
+      data: user,
+      token: token
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+};
+
 export default {
   registerUser,
   registerAdmin,
   loginUser,
-  logoutUser
+  logoutUser,
+  loginAdmin
 };
