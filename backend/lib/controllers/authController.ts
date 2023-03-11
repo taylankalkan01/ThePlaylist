@@ -5,6 +5,7 @@ import {
   registerUserInput,
   registerAdminInput
 } from "../schemas/auth/authValidation";
+import { generateToken } from "../helpers/token/generateToken";
 
 const registerUser = async (req: Request, res: Response) => {
   const { firstName, lastName, dob, email, password, phone } = req.body;
@@ -51,7 +52,7 @@ const registerUser = async (req: Request, res: Response) => {
 };
 const registerAdmin = async (req: Request, res: Response) => {
   const { firstName, lastName, password, dob, email } = req.body;
-  
+
   try {
     //validation
     registerAdminInput.parse(req.body);
@@ -93,7 +94,60 @@ const registerAdmin = async (req: Request, res: Response) => {
   }
 };
 
+const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  try {
+    //validation
+
+    //find user and check email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ error: true, message: "Email or Password is wrong" });
+    }
+
+    //check password
+    const checkPass = await bcrypt.compare(password,user.password)
+    if(!checkPass){
+      return res
+        .status(400)
+        .json({ error: true, message: "Email or Password is wrong" });
+    }
+
+    //generate token
+   let token = await generateToken(user)
+
+    //send cookie
+    res.cookie("userJWT", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax", //cross-site cookie ** boolean | 'lax' | 'strict' | 'none' | undefined;
+      maxAge: 24 * 60 * 60 * 1000, //maxAge = 1 day
+      // signed: true
+      // path?: string | undefined;
+      // domain?: string | undefined;
+    });
+
+    //response
+    res.status(200).json({
+      error: false,
+      message: "User Login Succesfully!",
+      data: user,
+      token: token,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+};
+
 export default {
   registerUser,
-  registerAdmin
+  registerAdmin,
+  loginUser
 };
