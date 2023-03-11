@@ -109,22 +109,22 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     //check password
-    const checkPass = await bcrypt.compare(password,user.password)
-    if(!checkPass){
+    const checkPass = await bcrypt.compare(password, user.password);
+    if (!checkPass) {
       return res
         .status(400)
         .json({ error: true, message: "Email or Password is wrong" });
     }
 
     //generate token
-   let token = await generateToken(user)
+    let token = await generateToken(user);
 
     //send cookie
     res.cookie("userJWT", token, {
       httpOnly: true,
       secure: true,
       sameSite: "lax", //cross-site cookie ** boolean | 'lax' | 'strict' | 'none' | undefined;
-      maxAge: 24 * 60 * 60 * 1000, //maxAge = 1 day
+      maxAge: 24 * 60 * 60 * 1000 //maxAge = 1 day
       // signed: true
       // path?: string | undefined;
       // domain?: string | undefined;
@@ -135,9 +135,8 @@ const loginUser = async (req: Request, res: Response) => {
       error: false,
       message: "User Login Succesfully!",
       data: user,
-      token: token,
+      token: token
     });
-
   } catch (err) {
     res.status(500).json({
       error: true,
@@ -146,21 +145,19 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-const logoutUser =async (req:Request,res:Response) => {
+const logoutUser = async (req: Request, res: Response) => {
   try {
     res.clearCookie("userJWT").status(200).json({
-      error:false,
-      message:"User Logout Successful."
-    })
-    
+      error: false,
+      message: "User Logout Successful."
+    });
   } catch (err) {
     res.status(500).json({
       error: true,
       message: `${process.env.NODE_ENV === "production" ? null : err}`
     });
   }
-  
-}
+};
 
 export default {
   registerUser,
