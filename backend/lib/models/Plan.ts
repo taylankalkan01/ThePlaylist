@@ -4,6 +4,7 @@ import moment from "moment";
 export interface Plan extends Document {
   isActive: boolean;
   planType: string;
+  price:string;
   createdAt: string;
   updatedAt: string;
 }
@@ -16,7 +17,11 @@ const planSchema = new mongoose.Schema(
       required: true
     },
     planType: {
-      type: String, //free-premium-family
+      type: String, //free-premium
+      required: true
+    },
+    price: {
+      type: String, //free(0)-premium($30)
       required: true
     },
     createdAt: {
