@@ -5,7 +5,7 @@ import {
   registerUserInput,
   registerAdminInput
 } from "../schemas/auth/authValidation";
-import { generateToken } from "../helpers/token/generateToken";
+import { generateUserToken,generateAdminToken } from "../helpers/token/generateToken";
 
 const registerUser = async (req: Request, res: Response) => {
   const { firstName, lastName, dob, email, password, phone } = req.body;
@@ -117,7 +117,7 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     //generate token
-    let token = await generateToken(user);
+    let token = await generateUserToken(user);
 
     //send cookie
     res.cookie("userJWT", token, {
@@ -190,12 +190,12 @@ const loginAdmin = async (req: Request, res: Response) => {
     }
 
     //generate token
-    let token = await generateToken(user);
+    let token = await generateAdminToken(user);
 
     //send cookie
     res.cookie("adminJWT", token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "lax", //cross-site cookie ** boolean | 'lax' | 'strict' | 'none' | undefined;
       maxAge: 24 * 60 * 60 * 1000 //maxAge = 1 day
       // signed: true
@@ -238,5 +238,5 @@ export default {
   loginUser,
   logoutUser,
   loginAdmin,
-  logoutAdmin,
+  logoutAdmin
 };
