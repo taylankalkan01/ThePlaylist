@@ -2,13 +2,13 @@ import request from "supertest"
 import app from "../../lib/app"
 import mongoose,{ ConnectOptions } from "mongoose"
 import Plan from "../../lib/models/Plan"
+import config from "config"
 
 const baseRoute = "/api/v1"
 
 
 beforeAll(async () => {
-    const url =
-      "mongodb+srv://admin:admin123@cluster0.t8xbhex.mongodb.net/?retryWrites=true&w=majority";
+    const url =config.get<string>("MONGO_TEST_URL")
     await mongoose.connect(url,{
         useNewUrlParser: true,
         useUnifiedTopology: true} as ConnectOptions);

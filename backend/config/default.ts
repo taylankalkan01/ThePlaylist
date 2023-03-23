@@ -5,6 +5,7 @@ dotenv.config({
 export default {
     port: process.env.APP_PORT,
     MONGO_URL:process.env.MONGO_URL,
+    MONGO_TEST_URL:process.env.MONGO_TEST_URL,
     ACCESS_TOKEN_USER_PRIVATE_KEY:process.env.ACCESS_TOKEN_USER_PRIVATE_KEY,
     ACCESS_TOKEN_ADMIN_PRIVATE_KEY:process.env.ACCESS_TOKEN_ADMIN_PRIVATE_KEY,
   };
