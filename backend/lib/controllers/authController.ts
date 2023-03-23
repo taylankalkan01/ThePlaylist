@@ -5,7 +5,10 @@ import {
   registerUserInput,
   registerAdminInput
 } from "../schemas/auth/authValidation";
-import { generateUserToken,generateAdminToken } from "../helpers/token/generateToken";
+import {
+  generateUserToken,
+  generateAdminToken
+} from "../helpers/token/generateToken";
 
 const registerUser = async (req: Request, res: Response) => {
   const { firstName, lastName, dob, email, password, phone } = req.body;

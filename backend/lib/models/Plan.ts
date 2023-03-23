@@ -4,7 +4,7 @@ import moment from "moment";
 export interface Plan extends Document {
   isActive: boolean;
   planType: string;
-  price:string;
+  price: string;
   createdAt: string;
   updatedAt: string;
 }
