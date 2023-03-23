@@ -125,7 +125,7 @@ const loginUser = async (req: Request, res: Response) => {
     //send cookie
     res.cookie("userJWT", token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "lax", //cross-site cookie ** boolean | 'lax' | 'strict' | 'none' | undefined;
       maxAge: 24 * 60 * 60 * 1000 //maxAge = 1 day
       // signed: true

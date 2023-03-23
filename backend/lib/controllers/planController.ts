@@ -45,6 +45,25 @@ const createPlan = async (req: Request, res: Response) => {
   }
 };
 
+//user and admin can view all plans
+const getAllPlans = async (req: Request, res: Response) => {
+  try {
+    const data = await Plan.find();
+
+    res.status(200).json({
+      error: false,
+      message: "All Plans are listed Succesfully!",
+      data: data
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+};
+
 export default {
-  createPlan
+  createPlan,
+  getAllPlans
 };
