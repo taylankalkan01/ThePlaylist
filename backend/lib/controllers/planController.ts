@@ -62,8 +62,25 @@ const getAllPlans = async (req: Request, res: Response) => {
     });
   }
 };
+const getAllPlansAdmin = async (req: Request, res: Response) => {
+  try {
+    const data = await Plan.find();
+
+    res.status(200).json({
+      error: false,
+      message: "All Plans are listed for admin Succesfully!",
+      data: data
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+};
 
 export default {
   createPlan,
-  getAllPlans
+  getAllPlans,
+  getAllPlansAdmin
 };
