@@ -4,7 +4,7 @@ import { createPlanInput } from "../schemas/plan/planValidation";
 import { z } from "zod";
 
 //admin can create a plan
-const createPlan = async (req: Request, res: Response) => {
+const createPlanAdmin = async (req: Request, res: Response) => {
   const { isActive, planType, price } = req.body;
 
   try {
@@ -79,8 +79,30 @@ const getAllPlansAdmin = async (req: Request, res: Response) => {
   }
 };
 
+//admin can delete plan by id
+const deletePlanByIdAdmin = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const data = await Plan.findByIdAndDelete(id);
+
+    res.status(200).json({
+      error: false,
+      message: `Plan with id: '${id}' is deleted for admin Succesfully!`,
+      data: data
+    });
+    
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+};
+
 export default {
-  createPlan,
+  createPlanAdmin,
   getAllPlans,
-  getAllPlansAdmin
+  getAllPlansAdmin,
+  deletePlanByIdAdmin
 };
