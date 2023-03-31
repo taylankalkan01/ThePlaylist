@@ -91,7 +91,6 @@ const deletePlanByIdAdmin = async (req: Request, res: Response) => {
       message: `Plan with id: '${id}' is deleted for admin Succesfully!`,
       data: data
     });
-    
   } catch (err) {
     res.status(500).json({
       error: true,
@@ -100,9 +99,36 @@ const deletePlanByIdAdmin = async (req: Request, res: Response) => {
   }
 };
 
+const deleteAllPlansAdmin = async (req: Request, res: Response) => {
+  try {
+
+    const data = await Plan.deleteMany();
+    if (data.deletedCount == 0) {
+      return res.status(400).json({
+        error: true,
+        message: `There is no Plan in database.`,
+        data: data.deletedCount
+      });
+    }
+
+    res.status(200).json({
+      error: false,
+      message: `All Plans are deleted for admin Succesfully!`,
+      data: data
+    });
+    
+  } catch (error) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : error}`
+    });
+  }
+};
+
 export default {
   createPlanAdmin,
   getAllPlans,
   getAllPlansAdmin,
-  deletePlanByIdAdmin
+  deletePlanByIdAdmin,
+  deleteAllPlansAdmin
 };
