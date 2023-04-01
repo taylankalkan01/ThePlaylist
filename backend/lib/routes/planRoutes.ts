@@ -8,6 +8,7 @@ import {
 const router = Router();
 
 router.get("/", verifyUserToken, planController.getAllPlans);
+router.get("/:id", verifyUserToken, planController.getPlanById);
 
 //admin
 router.post("/admin", verifyAdminToken, planController.createPlanAdmin);

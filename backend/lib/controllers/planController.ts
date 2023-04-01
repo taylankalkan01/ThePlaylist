@@ -79,6 +79,25 @@ const getAllPlansAdmin = async (req: Request, res: Response) => {
   }
 };
 
+//user and admin can view plan by id
+const getPlanById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const data = await Plan.findById(id);
+
+    res.status(200).json({
+      error: false,
+      message: `Plan with id: '${id}' is listed Succesfully!`,
+      data: data
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+};
+
 //admin can delete plan by id
 const deletePlanByIdAdmin = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -101,7 +120,6 @@ const deletePlanByIdAdmin = async (req: Request, res: Response) => {
 
 const deleteAllPlansAdmin = async (req: Request, res: Response) => {
   try {
-
     const data = await Plan.deleteMany();
     if (data.deletedCount == 0) {
       return res.status(400).json({
@@ -116,7 +134,6 @@ const deleteAllPlansAdmin = async (req: Request, res: Response) => {
       message: `All Plans are deleted for admin Succesfully!`,
       data: data
     });
-    
   } catch (error) {
     res.status(500).json({
       error: true,
@@ -130,5 +147,6 @@ export default {
   getAllPlans,
   getAllPlansAdmin,
   deletePlanByIdAdmin,
-  deleteAllPlansAdmin
+  deleteAllPlansAdmin,
+  getPlanById
 };
