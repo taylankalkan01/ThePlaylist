@@ -98,6 +98,24 @@ const getPlanById = async (req: Request, res: Response) => {
   }
 };
 
+const getPlanByIdAdmin = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const data = await Plan.findById(id);
+
+    res.status(200).json({
+      error: false,
+      message: `Plan with id: '${id}' is listed for admin Succesfully!`,
+      data: data
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : err}`
+    });
+  }
+};
+
 //admin can delete plan by id
 const deletePlanByIdAdmin = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -148,5 +166,6 @@ export default {
   getAllPlansAdmin,
   deletePlanByIdAdmin,
   deleteAllPlansAdmin,
-  getPlanById
+  getPlanById,
+  getPlanByIdAdmin
 };

@@ -13,6 +13,7 @@ router.get("/:id", verifyUserToken, planController.getPlanById);
 //admin
 router.post("/admin", verifyAdminToken, planController.createPlanAdmin);
 router.get("/admin", verifyAdminToken, planController.getAllPlansAdmin);
+router.get("/admin/:id", verifyAdminToken, planController.getPlanByIdAdmin);
 router.delete(
   "/admin/:id",
   verifyAdminToken,
