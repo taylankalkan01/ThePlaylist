@@ -20,5 +20,6 @@ router.delete(
   planController.deletePlanByIdAdmin
 );
 router.delete("/admin", verifyAdminToken, planController.deleteAllPlansAdmin);
+router.put("/admin/:id", verifyAdminToken, planController.updatePlanByIdAdmin);
 
 export default router;

@@ -160,6 +160,37 @@ const deleteAllPlansAdmin = async (req: Request, res: Response) => {
   }
 };
 
+//admin can update plan by id
+const updatePlanByIdAdmin = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { isActive, planType, price } = req.body;
+
+  try {
+    const data = await Plan.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          isActive: isActive,
+          planType: planType,
+          price: price
+        }
+      },
+      { new: true }
+    );
+
+    res.status(200).json({
+      error: false,
+      message: `Plan with id: '${id}' is updated for admin Succesfully!`,
+      data: data
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: true,
+      message: `${process.env.NODE_ENV === "production" ? null : error}`
+    });
+  }
+};
+
 export default {
   createPlanAdmin,
   getAllPlans,
@@ -167,5 +198,6 @@ export default {
   deletePlanByIdAdmin,
   deleteAllPlansAdmin,
   getPlanById,
-  getPlanByIdAdmin
+  getPlanByIdAdmin,
+  updatePlanByIdAdmin
 };
