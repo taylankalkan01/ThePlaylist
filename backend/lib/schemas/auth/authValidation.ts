@@ -67,3 +67,24 @@ export const registerAdminInput = z.object({
     invalid_type_error: "Date of birth must be a string"
   })
 });
+export const registerArtistInput = z.object({
+  email: z
+    .string({
+      required_error: "Email is required",
+      invalid_type_error: "email must be a string"
+    })
+    .email("Invalid email address"),
+  name: z
+    .string({
+      required_error: "Name is required",
+      invalid_type_error: "Name must be a string"
+    })
+    .min(3, { message: "Name must be 3 or more characters long" })
+    .max(18, { message: "Name must be 18 or fewer characters long" }),
+  password: z
+    .string({
+      required_error: "Password is required",
+      invalid_type_error: "Password must be a string"
+    })
+    .min(3, { message: "Password must be 3 or more characters long" }),
+});
