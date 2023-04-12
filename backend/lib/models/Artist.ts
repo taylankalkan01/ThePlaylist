@@ -3,6 +3,8 @@ import moment from "moment";
 
 export interface Artist extends Document {
   name: string;
+  email: string;
+  password: string;
   photo: string;
   bio: string;
   followers: ObjectId;
@@ -16,6 +18,14 @@ export interface Artist extends Document {
 const artistSchema = new mongoose.Schema(
   {
     name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    password: {
       type: String,
       required: true
     },
